@@ -8,13 +8,11 @@ Created on Thu Aug 18 12:30:48 2022
 from pandas import read_csv
 from matplotlib import pyplot
 series = read_csv('daily-total-female-births.csv', header=0, index_col=0)
-print(series.head())
+print(series.head(20))
 series.plot()
 pyplot.show()
 
 # fit and evaluate an AR model
-from pandas import read_csv
-from matplotlib import pyplot
 from statsmodels.tsa.ar_model import AutoReg
 from sklearn.metrics import mean_squared_error
 import numpy
@@ -61,9 +59,6 @@ pyplot.plot(predictions, color='red')
 pyplot.show()
 
 # fit an AR model and save the whole model to file
-from pandas import read_csv
-from statsmodels.tsa.ar_model import AutoReg
-import numpy
 
 # create a difference transform of the dataset
 def difference(dataset):
@@ -98,7 +93,6 @@ print(last_ob)
 # fit an AR model and manually save coefficients to file
 from pandas import read_csv
 from statsmodels.tsa.ar_model import AutoReg
-import numpy
 
 # create a difference transform of the dataset
 def difference(dataset):
@@ -125,7 +119,6 @@ numpy.save('man_data.npy', lag)
 numpy.save('man_obs.npy', [series.values[-1]])
 
 # load the manually saved model from file
-import numpy
 coef = numpy.load('man_model.npy')
 print(coef)
 lag = numpy.load('man_data.npy')
@@ -135,7 +128,7 @@ print(last_ob)
 
 # load AR model from file and make a one-step prediction
 from statsmodels.tsa.ar_model import AutoRegResults
-import numpy
+
 # load model
 model = AutoRegResults.load('ar_model.pkl')
 data = numpy.load('ar_data.npy')
@@ -147,8 +140,6 @@ yhat = predictions[0] + last_ob[0]
 print('Prediction: %f' % yhat)
 
 # load a coefficients and from file and make a manual prediction
-import numpy
-
 def predict(coef, history):
 	yhat = coef[0]
 	for i in range(1, len(coef)):
@@ -166,7 +157,6 @@ yhat = prediction + last_ob[0]
 print('Prediction: %f' % yhat)
 
 # update the data for the AR model with a new obs
-import numpy
 # get real observation
 observation = 48
 # load the saved data
