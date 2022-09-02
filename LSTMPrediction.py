@@ -19,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 import pandas as pd
 
-TrL=600
+TrL=1000
 
 df = pd.read_csv('HD.csv')
 
@@ -57,8 +57,8 @@ for i in range(60,len(train_data)):
     
     
 lstm_model=Sequential()
-lstm_model.add(LSTM(units=50,return_sequences=True,input_shape=(np.shape(x_train_data)[1],1)))
-lstm_model.add(LSTM(units=50))
+lstm_model.add(LSTM(units=90,return_sequences=True,input_shape=(np.shape(x_train_data)[1],1)))
+lstm_model.add(LSTM(units=90))
 lstm_model.add(Dense(1))
 model_data=data[len(data)-len(valid_data)-60:].values
 model_data=model_data.reshape(-1,1)
