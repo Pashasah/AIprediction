@@ -20,7 +20,7 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
 TrL=1100
-ARO=120
+ARO=12
 df = pd.read_csv('HD.csv')
 
 df = df[['Date', 'Close']]
@@ -76,7 +76,6 @@ X_test=np.array(X_test)
 X_test=np.reshape(X_test,(X_test.shape[0],X_test.shape[1],1))
 
 
-
 predicted_stock_price=lstm_model.predict(X_test)
 predicted_stock_price=scaler.inverse_transform(predicted_stock_price)
 
@@ -86,3 +85,8 @@ valid_data=data[TrL:]
 valid_data['Predictions']=predicted_stock_price
 plt.plot(train_data["Close"])
 plt.plot(valid_data[['Close',"Predictions"]])
+
+
+
+XtestSha=X_test[1:50,:,:]
+lstm_model.predict(XtestSha)
