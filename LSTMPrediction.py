@@ -19,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 import pandas as pd
 
-TrL=1200
+TrL=1100
 ARO=120
 df = pd.read_csv('HD.csv')
 
