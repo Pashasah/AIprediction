@@ -1,26 +1,22 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Aug 31 14:40:13 2022
-
 @author: sp7012
 """
-
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import keras as keras
 from matplotlib.pylab import rcParams
-rcParams['figure.figsize']=20,10
+rcParams['figure.figsize']=30,20
 from keras.models import Sequential
 from keras.layers import LSTM,Dropout,Dense
 from sklearn.preprocessing import MinMaxScaler
-
-
 import pandas as pd
 
 TrL=1100
-ARO=12
+ARO=6
 df = pd.read_csv('HD.csv')
 
 df = df[['Date', 'Close']]
@@ -55,8 +51,7 @@ for i in range(ARO,len(train_data)):
     x_train_data.append(scaled_data[i-ARO:i,0])
     y_train_data.append(scaled_data[i,0])
     
-    
-lstm_model=Sequential()
+    lstm_model=Sequential()
 lstm_model.add(LSTM(units=90,return_sequences=True,input_shape=(np.shape(x_train_data)[1],1)))
 lstm_model.add(LSTM(units=90))
 lstm_model.add(Dense(1))
@@ -75,18 +70,16 @@ for i in range(ARO,model_data.shape[0]):
 X_test=np.array(X_test)
 X_test=np.reshape(X_test,(X_test.shape[0],X_test.shape[1],1))
 
-
 predicted_stock_price=lstm_model.predict(X_test)
 predicted_stock_price=scaler.inverse_transform(predicted_stock_price)
-
 
 train_data=data[:TrL]
 valid_data=data[TrL:]
 valid_data['Predictions']=predicted_stock_price
-plt.plot(train_data["Close"])
+#plt.plot(train_data["Close"])
 plt.plot(valid_data[['Close',"Predictions"]])
 
+XtestSha=X_test[1:5,:,:]
 
-
-XtestSha=X_test[1:50,:,:]
-lstm_model.predict(XtestSha)
+predicted_stock_priceSHA=lstm_model.predict(XtestSha)
+predicted_stock_priceSHA=scaler.inverse_transform(predicted_stock_priceSHA)
